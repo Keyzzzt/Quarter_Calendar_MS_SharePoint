@@ -1,7 +1,7 @@
 import {Input} from '../Input/Input'
 import {Button} from '../Button/Button'
 import * as React from 'react'
-import styles from './addTask.module.scss'
+import s from './addTask.module.scss'
 
 type AddTaskProps = {
     taskName: string
@@ -24,9 +24,9 @@ export const AddTask: React.FC<AddTaskProps> = React.memo(({
                                                    handleAddTask,
                                                    maxCountExceeded,
                                                }) => {
-    console.log('AddTask   render')
+    // console.log('AddTask   render')
     return (
-        <div className={styles.addTask}>
+        <div className={s.addTask}>
             {maxCountExceeded
                 ? (<span>Maximum 10 tasks. Please remove task to add new one.</span>)
                 : (

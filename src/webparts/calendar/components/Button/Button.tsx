@@ -8,7 +8,7 @@ type ButtonProps = {
 }
 
 export const Button: React.FC<ButtonProps> = React.memo(({type, value, onClick}) => {
-    console.log('Button   render')
+    // console.log('Button   render')
     const className = type === 'success'
         ? s.success
         : type === 'danger'

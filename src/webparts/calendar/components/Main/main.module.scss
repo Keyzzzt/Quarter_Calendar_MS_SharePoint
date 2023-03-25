@@ -1,20 +1,19 @@
 @import '../../Styles/variables';
 
 .quarterTable {
-  width: 100%;
+  padding: 0;
+  //width: 100%;
   margin-top: 10px;
-  table-layout: fixed;
+  //table-layout: fixed;
   border-collapse: collapse;
   font-size: 0.9em;
-  border-radius: $borderRadius $borderRadius 0 0;
   box-shadow: $boxShadow;
   text-align: center;
 
   & thead tr {
     background: $primaryColor;
     color: #fff;
-    text-align: center;
-    height: 30px;
+    border-collapse: collapse;
   }
 
   & tbody tr {
@@ -24,16 +23,26 @@
   & tbody tr:nth-of-type(even) {
     background: #f3f3f3;
   }
-}
 
-.quarterWeekNumber {
-  width: 30px;
 }
 
 
 .infoRow {
-  & .infoItem {
+  background-color: palegreen;
+  padding: 0;
+
+  .infoItem {
+    //width: 150px;
     min-width: 100px;
+    padding: 0;
+
+    .infoItemWeekNumber {
+      padding: 0;
+      background-color: palevioletred;
+      min-width: 25px;
+      border-right: 1px solid #fff;
+
+    }
   }
 }
 

@@ -5,18 +5,20 @@
   cursor: pointer;
   overflow: hidden;
   word-wrap: break-word;
+  padding: 0;
 
   .taskWeeksRow {
-    & td {
-      min-width: 30px;
+    padding: 0;
+    .activeCell,
+    .cell {
+      padding: 0;
       height: 15px;
+      width: 25px;
+      border-right: 1px solid #fff;
 
     }
-
-    .activeWeekCell {
+    .activeCell {
       background: $primaryColor;
-      border: 1px solid #fff;
     }
-    .taskWeekCell{}
   }
 }

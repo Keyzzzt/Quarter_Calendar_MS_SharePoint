@@ -1,5 +1,5 @@
-import {WeekType} from '../reducers/tasksReducer'
 import {monthInfoType} from './getMonthsInfoArray'
+import {WeekType} from '../components/Main/Main'
 
 type monthInfoTypeWithWeekNumbers = monthInfoType & { weekNumbers: WeekType[] }
 

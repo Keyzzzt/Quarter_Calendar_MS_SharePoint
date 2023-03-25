@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const Tooltip: React.FC<Props> = React.memo(({title, start, end, showTip}) => {
-    console.log('Tooltip   render')
+    // console.log('Tooltip   render')
     const tipClass = showTip ? s.tooltip : s.hide
     return <p className={tipClass}><span>{title}, From: {start}, To: {end}</span></p>
 })

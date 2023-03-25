@@ -11,7 +11,7 @@ type ButtonProps = {
 }
 
 export const Input: React.FC<ButtonProps> = React.memo(({id, labelTitle, type, value, handleOnChange, placeholder}) => {
-    console.log('Input   render')
+    // console.log('Input   render')
     return (
         <>
             <label htmlFor={id}>{labelTitle}</label>

@@ -1,7 +1,7 @@
-import {WeekType} from '../reducers/tasksReducer'
 import {parseDateString} from './parseDateString'
 import {totalDaysInYear} from './totalDaysInYear'
 import {getDaysInMonth} from './totalDaysInMonth'
+import {WeekType} from '../components/Main/Main'
 // This function returns an array of WeekType, where weeks and years correspond to task dates
 // This task weeks/years we will compare to quarter weeks/years to mark weeks that are matching
 export const getWeeksAndYearsForTask = (startDate: string, endDate: string): WeekType[] => {

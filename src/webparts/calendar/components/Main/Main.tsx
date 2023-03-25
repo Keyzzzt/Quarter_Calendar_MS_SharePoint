@@ -1,10 +1,7 @@
 import * as React from 'react'
 import {v1} from 'uuid'
 import {useCallback, useEffect, useState} from 'react'
-import {
-    validateDatesOrder
-} from '../../utils/validateDatesOrder'
-import {TaskType, WeekType} from '../../reducers/tasksReducer'
+import {validateDatesOrder} from '../../utils/validateDatesOrder'
 import {Task} from '../Task/Task'
 import {Container} from '../Container/Container'
 import {AddTask} from '../AddTask/AddTask'
@@ -14,20 +11,34 @@ import {getWeeksNumbersRelatedToMonth} from '../../utils/getWeeksNumbersRelatedT
 import {getWeeksAndYearsForTask} from '../../utils/getWeeksAndYearsForTask'
 import {getMonthsInfoArray} from '../../utils/getMonthsInfoArray'
 import {Button} from '../Button/Button'
-import styles from './main.module.scss'
+import s from './main.module.scss'
 
-
-
+type TaskActiveWeeks = {
+    [key: string]: WeekType[]
+}
+export type WeekType = {
+    week: number
+    year: number
+}
+export type TaskType = {
+    id: string
+    startDate: string
+    endDate: string
+    title: string
+    weeksInQuarter?: WeekType[][]
+}
 
 export const Main: React.FC = () => {
-    console.log('Main   render')
+    // console.log('Main   render')
+    const [tasksActiveWeeks, setTasksActiveWeeks] = useState<TaskActiveWeeks>({}) // Here we will save all weeks that are active for tasks. key = task ID and value is array with all active weeks
     const [year, setYear] = useState<number>(new Date().getFullYear()) // Year to show, from start = present year
     const [quarter, setQuarter] = useState<number>(getQuarterNumber(new Date().getMonth())) // Quarter to show, from start = present quarter
-    const [startDate, setStartDate] = useState<string>('') // Date to show in task
-    const [endDate, setEndDate] = useState<string>('') // Date to show in task
-    const [taskName, setTaskName] = useState<string>('')
+    const [startDate, setStartDate] = useState<string>('2022-01-01') // Date to show in task
+    const [endDate, setEndDate] = useState<string>('2024-01-07') // Date to show in task
+    const [taskName, setTaskName] = useState<string>('Task')
     const [tasks, setTasks] = useState<TaskType[]>([]) // Max length 10
-    const [taskToEdit, setTaskToEdit] = useState<TaskType | null>(null)
+    const [taskToEdit, setTaskToEdit] = useState<TaskType | undefined>(undefined)
+
 
     // Form months array for current year
     const monthsInfo = getMonthsInfoArray(year)
@@ -54,12 +65,13 @@ export const Main: React.FC = () => {
 
             const task = {
                 id: v1(),
-                allWeeksAndYears,
-                name: taskName,
+                title: taskName,
                 weeksInQuarter, // Array to map, with weeks numbers, that are in this quarter
                 startDate,
                 endDate,
             }
+            setTasksActiveWeeks(prevState => ({...prevState, [task.id]: allWeeksAndYears}))
+            tasksActiveWeeks[task.id] = allWeeksAndYears
             setTasks((prev) => [...prev, task])
             setTaskName('')
         }
@@ -67,6 +79,11 @@ export const Main: React.FC = () => {
 
     const handleRemove = (taskId: string): void => {
         setTasks((prev) => prev.filter((task) => task.id !== taskId))
+        setTasksActiveWeeks(prevState => {
+            const stateCopy = {...prevState}
+            delete stateCopy[taskId]
+            return stateCopy
+        })
     }
     const handleChangeQuarter = useCallback((flag: 'back' | 'forward') => {
         if (flag === 'back') {
@@ -117,10 +134,10 @@ export const Main: React.FC = () => {
                          maxCountExceeded={tasks.length === 10}/>
             </div>
 
-            {taskToEdit && <EditTask taskId={taskToEdit.id} taskName={taskToEdit.name} startDate={taskToEdit.startDate}
+            {taskToEdit && <EditTask taskId={taskToEdit.id} taskName={taskToEdit.title} startDate={taskToEdit.startDate}
                                      endDate={taskToEdit.endDate} handleEditTask={handleEditTask}
                                      handleRemove={handleRemove} setTaskToEdit={setTaskToEdit}/>}
-            <table className={styles.quarterTable}>
+            <table className={s.quarterTable}>
                 <>
                     <thead>
                     <tr>
@@ -136,29 +153,30 @@ export const Main: React.FC = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr className={styles.infoRow}>
-                        <td className={styles.infoItem}>Title</td>
-                        <td className={styles.infoItem}>Start</td>
-                        <td className={styles.infoItem}>End</td>
-                        {quartersToRender.map((quarter) => (
-                            <td key={v1()}>
+                    <tr className={s.infoRow}>
+                        <td className={s.infoItem}>Title</td>
+                        <td className={s.infoItem}>Start</td>
+                        <td className={s.infoItem}>End</td>
+                        {quartersToRender.map((quarter, i) => (
+                            <td key={v1()} className={s.infoItem}>
                                 {quarter.weekNumbers
-                                    ? quarter.weekNumbers.map((week) => (
-                                        <td key={v1()} className={styles.quarterWeekNumber}>
+                                    && quarter.weekNumbers.map((week, j) => {
+                                        const skipLastBorderRight = i === (quartersToRender.length - 1) && (j === quarter.weekNumbers.length - 1) && {borderRight: '0', backgroundColor: 'blue'}
+                                        return <td style={skipLastBorderRight} key={v1()} className={s.infoItemWeekNumber}>
                                             {week.week}
                                         </td>
-                                    ))
-                                    : null}
+                                    })}
                             </td>
                         ))}
                     </tr>
                     {tasks && tasks.map((task) => {
-                        return <Task key={task.id} task={task} setTaskToEdit={setTaskToEdit}/>
+                        return <Task key={task.id} task={task} setTaskToEdit={setTaskToEdit}
+                                     allWeeksAndYears={tasksActiveWeeks[task.id]}/>
                     })}
                     </tbody>
                 </>
             </table>
-            <div className={styles.hint}>
+            <div className={s.hint}>
                 {tasks && tasks.length === 0 && <div>* No task to show, please add new task</div>}
                 <div>* Double click on task for edit</div>
                 <div>* Hover on task title for info</div>

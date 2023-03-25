@@ -4,7 +4,7 @@ import {getFirstMondayDate} from './getFirstMondayDate'
 import {v1} from 'uuid'
 import {getMonthName} from './getMonthName'
 import {getQuarterNumber} from './getQuarterNumber'
-import {WeekType} from '../reducers/tasksReducer'
+import {WeekType} from '../components/Main/Main'
 
 export type monthInfoType = {
     id: string
