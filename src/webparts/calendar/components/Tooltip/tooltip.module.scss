@@ -1,0 +1,16 @@
+@import '../../Styles/variables';
+
+.tooltip {
+  background: $danger;
+  padding: 3px 16px;
+  color: #fff;
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  border-radius: 4px;
+  z-index: 100;
+}
+
+.hide {
+  display: none;
+}

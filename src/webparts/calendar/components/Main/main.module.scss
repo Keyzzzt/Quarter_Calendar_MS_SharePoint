@@ -1,0 +1,44 @@
+@import '../../Styles/variables';
+
+.quarterTable {
+  width: 100%;
+  margin-top: 10px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 0.9em;
+  border-radius: $borderRadius $borderRadius 0 0;
+  box-shadow: $boxShadow;
+  text-align: center;
+
+  & thead tr {
+    background: $primaryColor;
+    color: #fff;
+    text-align: center;
+    height: 30px;
+  }
+
+  & tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  & tbody tr:nth-of-type(even) {
+    background: #f3f3f3;
+  }
+}
+
+.quarterWeekNumber {
+  width: 30px;
+}
+
+
+.infoRow {
+  & .infoItem {
+    min-width: 100px;
+  }
+}
+
+.hint {
+  margin-top: 5px;
+  text-align: right;
+  font-size: 0.8em;
+}

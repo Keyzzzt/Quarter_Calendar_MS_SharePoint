@@ -1,0 +1,22 @@
+@import '../../Styles/variables';
+
+.taskRow {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  word-wrap: break-word;
+
+  .taskWeeksRow {
+    & td {
+      min-width: 30px;
+      height: 15px;
+
+    }
+
+    .activeWeekCell {
+      background: $primaryColor;
+      border: 1px solid #fff;
+    }
+    .taskWeekCell{}
+  }
+}

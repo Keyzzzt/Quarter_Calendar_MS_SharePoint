@@ -1,0 +1,29 @@
+@import '../../Styles/variables';
+
+.editTask {
+  z-index: 100;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: $borderRadius;
+  text-align: left;
+  background: #fff;
+  padding: 50px;
+  box-shadow: $boxShadow;
+
+  & label {
+    font-size: 0.8em;
+  }
+
+  & input:not(:last-of-type) {
+    margin-bottom: 20px;
+  }
+
+  .editBtn {
+    background: $primaryColor;
+    color: #fff;
+  }
+}

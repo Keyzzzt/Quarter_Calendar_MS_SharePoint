@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import 'normilize';
+@import 'reset';
+@import 'variables';
+
+html {
+  caret-color: transparent;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
+  text-align: center;
+  color: $primaryColor;
+}
+
+input {
+  border: 1px solid $primaryColor;
+  color: $primaryColor;
+  outline: 0;
+  padding: 4px 20px;
+  border-radius: $borderRadius;
+
+  &::placeholder {
+    color: $primaryColor;
+  }
+}

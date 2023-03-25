@@ -1,0 +1,35 @@
+$offset: 16px;
+
+// Colors
+
+$primaryColor: #0ebeb0;
+$primaryColorHover: #0ca296;
+$primaryColorActive: #0a8f85;
+$danger: #C95445;
+$dangerHover: #Ba4536;
+$dangerActive: #B13c34;
+
+$borderRadius: 5px;
+$boxShadow:  0 0 20px rgba(0, 0, 0, .15);
+
+
+@mixin breakpoint($point) {
+  @if $point == 2560 {
+    @media (min-width: 2560px) {
+      @content;
+    }
+  } @else if $point == 1024 {
+    @media (min-width: 1024px) {
+      @content;
+    }
+  } @else if $point == 768 {
+    @media (min-width: 768px) {
+      @content;
+    }
+  } @else if $point == 360 {
+    @media (min-width: 360px) {
+      @content;
+    }
+  }
+}
+
