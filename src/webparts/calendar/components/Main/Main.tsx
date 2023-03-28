@@ -40,9 +40,6 @@ export const Main: React.FC = () => {
     const [tasks, setTasks] = useState<TaskType[]>([]) // Max length 10
     const [taskToEdit, setTaskToEdit] = useState<TaskType | undefined>(undefined)
 
-    console.log(tasksActiveWeeks)
-
-
 
     // Form months array for current year
     const monthsInfo = getMonthsInfoArray(year)
@@ -120,15 +117,13 @@ export const Main: React.FC = () => {
 
 
     const handleEditTask = (taskId: string, title: string, startDate: string, endDate: string): void => {
-
         const updatedAllWeeksAndYears = getWeeksAndYearsForTask(startDate, endDate)
 
         setTasks((prev) => [...prev].map((task) => (task.id === taskId ? {
             ...task,
-            name: title,
+            title,
             startDate,
             endDate,
-            allWeeksAndYears: getWeeksAndYearsForTask(startDate, endDate)
         } : task)))
         setTasksActiveWeeks(prevState => ({...prevState, [taskId]: updatedAllWeeksAndYears}))
     }
