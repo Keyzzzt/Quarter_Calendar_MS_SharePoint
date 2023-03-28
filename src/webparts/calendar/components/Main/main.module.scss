@@ -1,8 +1,8 @@
-@import '../../Styles/variables';
+@import '../../Styles/variables.module';
 
 .quarterTable {
   padding: 0;
-  //width: 100%;
+  width: 100%;
   margin-top: 10px;
   //table-layout: fixed;
   border-collapse: collapse;
@@ -13,36 +13,44 @@
   & thead tr {
     background: $primaryColor;
     color: #fff;
-    border-collapse: collapse;
   }
 
   & tbody tr {
     border-bottom: 1px solid #ddd;
   }
-
-  & tbody tr:nth-of-type(even) {
-    background: #f3f3f3;
-  }
-
 }
 
-
 .infoRow {
-  background-color: palegreen;
   padding: 0;
 
   .infoItem {
-    //width: 150px;
     min-width: 100px;
     padding: 0;
 
-    .infoItemWeekNumber {
-      padding: 0;
-      background-color: palevioletred;
-      min-width: 25px;
-      border-right: 1px solid #fff;
-
+    &:nth-child(4) {
+      border-right: 2px solid #adadad;
     }
+
+    &:nth-child(5) {
+      border-right: 2px solid #adadad;
+    }
+
+    .wrapper {
+      display: flex;
+
+
+      .infoItemWeekNumber {
+        flex: 1;
+        padding: 0;
+        min-width: 25px;
+        border-right: 2px solid #ddd;
+        &:last-child {
+          border-right: 0;
+        }
+      }
+    }
+
+
   }
 }
 

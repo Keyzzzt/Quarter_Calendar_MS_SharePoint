@@ -1,4 +1,4 @@
-import styles from './task.module.scss.js'
+import s from './task.module.scss'
 import {v1} from 'uuid'
 import * as React from 'react'
 import {Tooltip} from '../Tooltip/Tooltip'
@@ -15,7 +15,7 @@ export const Task: React.FC<TaskProps> = React.memo(({task, setTaskToEdit, allWe
     const {title, startDate, endDate, weeksInQuarter} = task
     const [showTip, setShowTip] = React.useState(false)
     return (
-        <tr className={styles.taskRow} onDoubleClick={() => setTaskToEdit(task)}>
+        <tr className={s.taskRow} onDoubleClick={() => setTaskToEdit(task)}>
             <td onMouseEnter={() => setShowTip(true)} onMouseLeave={() => setShowTip(false)}>
                 {title}
                 <Tooltip title={title} start={startDate} end={endDate} showTip={showTip}/>
@@ -26,15 +26,16 @@ export const Task: React.FC<TaskProps> = React.memo(({task, setTaskToEdit, allWe
             {weeksInQuarter &&
                 weeksInQuarter.map((weeks, i) => {
                     return (
-                        <td className={styles.taskWeeksRow} key={v1()}>
-                            {weeks.map((weekNumber, j) => {
-                                const className = allWeeksAndYears?.some(el => el.week === weekNumber.week && el.year === weekNumber.year) ? `${styles.activeCell} ${styles.cell}` : styles.cell
-                                const skipLastBorderRight = (i === weeksInQuarter.length - 1) && (j === weeks.length - 1) && {
-                                    borderRight: '0',
-                                    backgroundColor: 'blue'
-                                }
-                                return <td style={skipLastBorderRight} key={v1()} className={className}/>
-                            })}
+                        <td className={s.taskWeeksRow} key={v1()}>
+                            <div className={s.wrapper}>
+                                {weeks.map((weekNumber, j) => {
+                                    const className = allWeeksAndYears?.some(el => el.week === weekNumber.week && el.year === weekNumber.year) ? s.activeCell : s.cell
+                                    const skipLastBorderRight = (i === weeksInQuarter.length - 1) && (j === weeks.length - 1) && {
+                                        borderRight: 0
+                                    }
+                                    return <div style={{...skipLastBorderRight}} key={v1()} className={className}/>
+                                })}
+                            </div>
                         </td>
                     )
                 })}

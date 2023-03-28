@@ -1,4 +1,4 @@
-@import '../../Styles/variables';
+@import '../../Styles/variables.module';
 
 .taskRow {
   position: relative;
@@ -9,16 +9,33 @@
 
   .taskWeeksRow {
     padding: 0;
-    .activeCell,
-    .cell {
-      padding: 0;
-      height: 15px;
-      width: 25px;
-      border-right: 1px solid #fff;
+    &:nth-child(4) {
+      border-right: 2px solid #adadad;
+    }
 
+    &:nth-child(5) {
+      border-right: 2px solid #adadad;
     }
-    .activeCell {
-      background: $primaryColor;
+    .wrapper {
+      display: flex;
+
+      .activeCell,
+      .cell {
+        padding: 0;
+        height: 15px;
+        width: 25px;
+        border-right: 2px solid #ddd;
+        flex: 1;
+        &:last-child {
+          border-right: 0;
+        }
+      }
+
+      .activeCell {
+        background: $primaryColor;
+      }
     }
+
+
   }
 }

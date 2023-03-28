@@ -29,15 +29,19 @@ export type TaskType = {
 }
 
 export const Main: React.FC = () => {
+
     // console.log('Main   render')
     const [tasksActiveWeeks, setTasksActiveWeeks] = useState<TaskActiveWeeks>({}) // Here we will save all weeks that are active for tasks. key = task ID and value is array with all active weeks
     const [year, setYear] = useState<number>(new Date().getFullYear()) // Year to show, from start = present year
     const [quarter, setQuarter] = useState<number>(getQuarterNumber(new Date().getMonth())) // Quarter to show, from start = present quarter
-    const [startDate, setStartDate] = useState<string>('2022-01-01') // Date to show in task
-    const [endDate, setEndDate] = useState<string>('2024-01-07') // Date to show in task
+    const [startDate, setStartDate] = useState<string>('2023-01-09') // Date to show in task
+    const [endDate, setEndDate] = useState<string>('2023-01-15') // Date to show in task
     const [taskName, setTaskName] = useState<string>('Task')
     const [tasks, setTasks] = useState<TaskType[]>([]) // Max length 10
     const [taskToEdit, setTaskToEdit] = useState<TaskType | undefined>(undefined)
+
+    console.log(tasksActiveWeeks)
+
 
 
     // Form months array for current year
@@ -73,7 +77,7 @@ export const Main: React.FC = () => {
             setTasksActiveWeeks(prevState => ({...prevState, [task.id]: allWeeksAndYears}))
             tasksActiveWeeks[task.id] = allWeeksAndYears
             setTasks((prev) => [...prev, task])
-            setTaskName('')
+            // setTaskName('')
         }
     }
 
@@ -117,6 +121,8 @@ export const Main: React.FC = () => {
 
     const handleEditTask = (taskId: string, title: string, startDate: string, endDate: string): void => {
 
+        const updatedAllWeeksAndYears = getWeeksAndYearsForTask(startDate, endDate)
+
         setTasks((prev) => [...prev].map((task) => (task.id === taskId ? {
             ...task,
             name: title,
@@ -124,6 +130,7 @@ export const Main: React.FC = () => {
             endDate,
             allWeeksAndYears: getWeeksAndYearsForTask(startDate, endDate)
         } : task)))
+        setTasksActiveWeeks(prevState => ({...prevState, [taskId]: updatedAllWeeksAndYears}))
     }
 
     return (
@@ -159,13 +166,15 @@ export const Main: React.FC = () => {
                         <td className={s.infoItem}>End</td>
                         {quartersToRender.map((quarter, i) => (
                             <td key={v1()} className={s.infoItem}>
-                                {quarter.weekNumbers
-                                    && quarter.weekNumbers.map((week, j) => {
-                                        const skipLastBorderRight = i === (quartersToRender.length - 1) && (j === quarter.weekNumbers.length - 1) && {borderRight: '0', backgroundColor: 'blue'}
-                                        return <td style={skipLastBorderRight} key={v1()} className={s.infoItemWeekNumber}>
-                                            {week.week}
-                                        </td>
-                                    })}
+                                <div className={s.wrapper}>
+                                    {quarter.weekNumbers
+                                        && quarter.weekNumbers.map((week, j) => {
+                                            return <div  key={v1()}
+                                                        className={s.infoItemWeekNumber}>
+                                                {week.week}
+                                            </div>
+                                        })}
+                                </div>
                             </td>
                         ))}
                     </tr>
